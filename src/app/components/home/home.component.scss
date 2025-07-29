@@ -1,0 +1,631 @@
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4682b4 100%);
+  position: relative;
+
+  // Add subtle overlay pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+.header-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(13, 27, 42, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  left: 20px;
+}
+
+.desktop-menu {
+  display: flex;
+  gap: 10px;
+
+  &.centered-menu {
+    justify-content: center;
+    flex: 1;
+  }
+}
+
+// Mobile menu button - hidden by default, shown on mobile
+.mobile-menu-button {
+  display: none;
+  position: absolute;
+  right: 20px;
+}
+
+.menu-item {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  mat-icon {
+    font-size: 20px;
+  }
+
+  .menu-text {
+    white-space: nowrap;
+  }
+}
+
+// Mobile responsive header styles
+@media (max-width: 768px) {
+  .header-toolbar {
+    padding: 0 15px;
+    justify-content: flex-start;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+    position: static;
+    flex: 1;
+  }
+
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+    position: static;
+  }
+}
+
+// Small mobile screens
+@media (max-width: 480px) {
+  .header-toolbar {
+    padding: 0 10px;
+  }
+
+  .logo {
+    font-size: 3.2rem;
+  }
+
+  .mobile-menu-button {
+    right: 10px;
+  }
+}
+
+.content-area {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-card {
+  margin-bottom: 20px;
+  background: rgba(173, 216, 230, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(135, 206, 235, 0.4);
+  animation: fadeInUp 0.8s ease-out;
+
+  mat-card-header {
+    .mat-card-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .mat-card-subtitle {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+  }
+
+  mat-card-content {
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
+  }
+}
+
+.quote-cta-card {
+  margin-top: 30px;
+  background: rgba(173, 216, 230, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(135, 206, 235, 0.4);
+  animation: fadeInUp 1s ease-out;
+
+  mat-card-header {
+    .mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      color: #0d47a1;
+    }
+
+    .mat-card-subtitle {
+      font-size: 1.1rem;
+      color: #1976d2;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+  }
+
+  .cta-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .cta-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    width: 100%;
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      mat-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+        color: #1976d2;
+      }
+
+      span {
+        font-weight: 600;
+        color: #333;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    .main-cta-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #1976d2, #42a5f5);
+      color: white;
+      border-radius: 25px;
+      box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(135deg, #1565c0, #1976d2);
+        box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
+        transform: translateY(-2px);
+      }
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .cta-note {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0;
+      font-style: italic;
+    }
+  }
+
+  // Mobile responsive styles for CTA card
+  @media (max-width: 768px) {
+    .cta-features {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+
+      .feature-item {
+        padding: 12px;
+
+        mat-icon {
+          font-size: 28px;
+          width: 28px;
+          height: 28px;
+        }
+
+        span {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .cta-actions {
+      .main-cta-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .cta-note {
+        font-size: 0.8rem;
+        text-align: center;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cta-features {
+      grid-template-columns: 1fr;
+      gap: 12px;
+
+      .feature-item {
+        padding: 10px;
+      }
+    }
+
+    .cta-actions {
+      .main-cta-btn {
+        width: 100%;
+        padding: 14px 20px;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.why-choose-us-card {
+  margin-top: 30px;
+  background: rgba(173, 216, 230, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(135, 206, 235, 0.4);
+  animation: fadeInUp 0.9s ease-out;
+
+  mat-card-header {
+    .mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      color: #0d47a1;
+    }
+
+    .mat-card-subtitle {
+      font-size: 1.1rem;
+      color: #1976d2;
+      font-weight: 500;
+      margin-top: 5px;
+    }
+  }
+}
+
+.why-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.why-choose-item {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(135, 206, 235, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #1976d2, #42a5f5);
+    border-radius: 50%;
+    margin-bottom: 20px;
+
+    mat-icon {
+      color: white;
+      font-size: 30px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  h3 {
+    color: #0d47a1;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    color: #1976d2;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-style: italic;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+      color: #333;
+      line-height: 1.5;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #1976d2;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      strong {
+        color: #0d47a1;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.experience-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 12px;
+  border: 2px solid rgba(135, 206, 235, 0.5);
+  margin-top: 30px;
+
+  mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #ffd700;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .experience-content {
+    h3 {
+      color: #0d47a1;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      font-size: 1rem;
+    }
+  }
+}
+
+// Mobile responsive styles for why choose us
+@media (max-width: 768px) {
+  .why-choose-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .why-choose-item {
+    padding: 20px;
+
+    .icon-wrapper {
+      width: 50px;
+      height: 50px;
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    h4 {
+      font-size: 0.9rem;
+    }
+  }
+
+  .experience-highlight {
+    flex-direction: column;
+    text-align: center;
+
+    mat-icon {
+      align-self: center;
+    }
+  }
+}
+
+// Mobile responsive styles
+@media (max-width: 768px) {
+  .content-area {
+    padding: 15px;
+  }
+
+  .welcome-card, .quote-cta-card, .why-choose-us-card {
+    margin: 15px 0;
+  }
+
+  // Welcome card mobile responsive text
+  .welcome-card {
+    mat-card-header {
+      .mat-card-title {
+        font-size: 1.8rem;
+      }
+
+      .mat-card-subtitle {
+        font-size: 1.2rem;
+      }
+    }
+
+    mat-card-content {
+      p {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  // Mobile menu styles
+  .mat-menu-panel {
+    max-width: 280px !important;
+  }
+
+  .mat-menu-item {
+    line-height: 48px;
+    height: 48px;
+
+    mat-icon {
+      margin-right: 12px;
+    }
+  }
+}
+
+// Small mobile screens (phones in portrait)
+@media (max-width: 480px) {
+  .content-area {
+    padding: 10px;
+  }
+
+  .welcome-card, .quote-cta-card, .why-choose-us-card {
+    margin: 10px 0;
+  }
+
+  // Welcome card small mobile responsive text
+  .welcome-card {
+    mat-card-header {
+      .mat-card-title {
+        font-size: 1.6rem;
+      }
+
+      .mat-card-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    mat-card-content {
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+}
+
+// Large mobile screens and small tablets
+@media (min-width: 769px) and (max-width: 1024px) {
+  .desktop-menu {
+    gap: 8px;
+  }
+
+  .menu-item {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+
+    mat-icon {
+      font-size: 18px;
+    }
+  }
+
+  .content-area {
+    padding: 20px 15px;
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

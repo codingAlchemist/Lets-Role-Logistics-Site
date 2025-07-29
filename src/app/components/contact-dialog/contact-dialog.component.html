@@ -1,0 +1,196 @@
+<div class="contact-dialog">
+  <div mat-dialog-title class="dialog-header">
+    <div class="header-content">
+      <mat-icon>contact_mail</mat-icon>
+      <h2>Contact Us</h2>
+    </div>
+    <mat-icon (click)="onCancel()" class="close-button">cancel</mat-icon>
+  </div>
+
+  <div mat-dialog-content class="dialog-content">
+    <p class="dialog-subtitle">We'd love to hear from you! Fill out the form below and we'll get back to you as soon as
+      possible.</p>
+
+    <form [formGroup]="contactForm" class="contact-form">
+      <!-- Personal Information -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>person</mat-icon>
+          Personal Information
+        </h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" placeholder="Enter your first name">
+            <mat-icon matSuffix>badge</mat-icon>
+            <mat-error *ngIf="hasError('firstName', 'required')">
+              {{getErrorMessage('firstName')}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" placeholder="Enter your last name">
+            <mat-icon matSuffix>badge</mat-icon>
+            <mat-error *ngIf="hasError('lastName', 'required')">
+              {{getErrorMessage('lastName')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email Address</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Enter your email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors">
+              {{getErrorMessage('email')}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" placeholder="Enter your phone number">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="hasError('phone', 'required')">
+              {{getErrorMessage('phone')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Company (Optional)</mat-label>
+            <input matInput formControlName="company" placeholder="Enter your company name">
+            <mat-icon matSuffix>business</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>help_outline</mat-icon>
+          Inquiry Details
+        </h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Inquiry Type</mat-label>
+            <mat-select formControlName="inquiryType">
+              <mat-option *ngFor="let type of inquiryTypes" [value]="type.value">
+                {{type.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('inquiryType', 'required')">
+              {{getErrorMessage('inquiryType')}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Subject</mat-label>
+            <input matInput formControlName="subject" placeholder="Brief description of your inquiry">
+            <mat-icon matSuffix>subject</mat-icon>
+            <mat-error *ngIf="hasError('subject', 'required')">
+              {{getErrorMessage('subject')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width message-field">
+            <mat-label>Message</mat-label>
+            <textarea matInput formControlName="message" rows="4"
+              placeholder="Please provide details about your inquiry..."></textarea>
+            <mat-error *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.errors">
+              {{getErrorMessage('message')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Contact Preferences -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>settings</mat-icon>
+          Contact Preferences
+        </h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Preferred Contact Method</mat-label>
+            <mat-select formControlName="preferredContact">
+              <mat-option value="email">Email</mat-option>
+              <mat-option value="phone">Phone</mat-option>
+              <mat-option value="either">Either</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Urgency Level</mat-label>
+            <mat-select formControlName="urgency">
+              <mat-option value="low">Low - General inquiry</mat-option>
+              <mat-option value="normal">Normal - Standard response</mat-option>
+              <mat-option value="high">High - Urgent matter</mat-option>
+              <mat-option value="critical">Critical - Immediate attention</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-checkbox formControlName="newsletter" class="newsletter-checkbox">
+            Subscribe to our newsletter for updates and logistics insights
+          </mat-checkbox>
+        </div>
+      </div>
+    </form>
+
+    <!-- Contact Information Display -->
+    <div class="contact-info-section">
+      <h3 class="section-title">
+        <mat-icon>location_on</mat-icon>
+        Other Ways to Reach Us
+      </h3>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <mat-icon>phone</mat-icon>
+          <div>
+            <strong>Phone</strong>
+            <span>1-800-LETS-ROLL</span>
+          </div>
+        </div>
+        <div class="contact-method">
+          <mat-icon>email</mat-icon>
+          <div>
+            <strong>Email</strong>
+            <span>info&#64;letsroll-logistics.com</span>
+          </div>
+        </div>
+        <div class="contact-method">
+          <mat-icon>schedule</mat-icon>
+          <div>
+            <strong>Business Hours</strong>
+            <span>Mon-Fri: 8:00 AM - 6:00 PM EST</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="onCancel()" class="cancel-btn">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-button (click)="onReset()" class="reset-btn">
+      <mat-icon>refresh</mat-icon>
+      Reset
+    </button>
+    <button mat-raised-button color="primary" (click)="onSubmitContact()" [disabled]="contactForm.invalid"
+      class="submit-btn">
+      <mat-icon>send</mat-icon>
+      Send Message
+    </button>
+  </div>
+</div>

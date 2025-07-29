@@ -1,0 +1,150 @@
+<div class="quote-dialog">
+  <div mat-dialog-title class="dialog-header">
+    <div class="header-content">
+      <mat-icon>request_quote</mat-icon>
+      <h2>Get a Quick Quote</h2>
+    </div>
+    <mat-icon (click)="onCancel()" class="close-button">cancel</mat-icon>
+  </div>
+
+  <div mat-dialog-content class="dialog-content">
+    <p class="dialog-subtitle">Fill out the form below for an instant shipping estimate</p>
+
+    <form [formGroup]="quoteForm" class="quote-form">
+      <!-- Shipping Information -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>local_shipping</mat-icon>
+          Shipping Information
+        </h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Origin</mat-label>
+            <input matInput formControlName="origin" placeholder="Enter pickup location">
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="quoteForm.get('origin')?.hasError('required') && quoteForm.get('origin')?.touched">
+              Origin is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Destination</mat-label>
+            <input matInput formControlName="destination" placeholder="Enter delivery location">
+            <mat-icon matSuffix>place</mat-icon>
+            <mat-error
+              *ngIf="quoteForm.get('destination')?.hasError('required') && quoteForm.get('destination')?.touched">
+              Destination is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Service Type</mat-label>
+            <mat-select formControlName="serviceType">
+              <mat-option *ngFor="let service of serviceTypes" [value]="service.value">
+                {{service.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="quoteForm.get('serviceType')?.hasError('required') && quoteForm.get('serviceType')?.touched">
+              Please select a service type
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Weight (lbs)</mat-label>
+            <input matInput type="number" formControlName="weight" placeholder="Enter weight">
+            <mat-icon matSuffix>fitness_center</mat-icon>
+            <mat-error *ngIf="quoteForm.get('weight')?.hasError('required') && quoteForm.get('weight')?.touched">
+              Weight is required
+            </mat-error>
+            <mat-error *ngIf="quoteForm.get('weight')?.hasError('min') && quoteForm.get('weight')?.touched">
+              Weight must be greater than 0
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Dimensions (optional)</mat-label>
+            <input matInput formControlName="dimensions" placeholder="L x W x H (inches)">
+            <mat-icon matSuffix>straighten</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Package Description</mat-label>
+            <textarea matInput formControlName="description" rows="3" placeholder="Describe your shipment"></textarea>
+            <mat-error
+              *ngIf="quoteForm.get('description')?.hasError('required') && quoteForm.get('description')?.touched">
+              Description is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>contact_mail</mat-icon>
+          Contact Information
+        </h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="contactName" placeholder="Enter your name">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error
+              *ngIf="quoteForm.get('contactName')?.hasError('required') && quoteForm.get('contactName')?.touched">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="contactEmail" placeholder="Enter your email">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error
+              *ngIf="quoteForm.get('contactEmail')?.hasError('required') && quoteForm.get('contactEmail')?.touched">
+              Email is required
+            </mat-error>
+            <mat-error
+              *ngIf="quoteForm.get('contactEmail')?.hasError('email') && quoteForm.get('contactEmail')?.touched">
+              Please enter a valid email
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="contactPhone" placeholder="Enter your phone number">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error
+              *ngIf="quoteForm.get('contactPhone')?.hasError('required') && quoteForm.get('contactPhone')?.touched">
+              Phone number is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="onCancel()" class="cancel-btn">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-button (click)="onReset()" class="reset-btn">
+      <mat-icon>refresh</mat-icon>
+      Reset
+    </button>
+    <button mat-raised-button color="primary" (click)="onSubmitQuote()" [disabled]="quoteForm.invalid"
+      class="submit-btn">
+      <mat-icon>send</mat-icon>
+      Get Quote
+    </button>
+  </div>
+</div>

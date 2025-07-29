@@ -1,0 +1,177 @@
+<div class="home-container">
+  <!-- Header with Logo and Main Menu -->
+  <mat-toolbar color="primary" class="header-toolbar">
+    <span class="logo">Let's Roll Logistics</span>
+
+    <!-- Desktop Menu - Centered -->
+    <div class="desktop-menu centered-menu">
+      <button mat-button *ngFor="let item of menuItems" (click)="onMenuItemClick(item)" class="menu-item">
+        <mat-icon>{{item.icon}}</mat-icon>
+        <span class="menu-text">{{item.name}}</span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="mobile-menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Mobile Menu -->
+  <mat-menu #mobileMenu="matMenu">
+    <button mat-menu-item *ngFor="let item of menuItems" (click)="onMenuItemClick(item)">
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span>{{item.name}}</span>
+    </button>
+  </mat-menu>
+
+  <!-- Main Content Area -->
+  <div class="content-area">
+    <mat-card class="welcome-card">
+      <mat-card-header>
+        <mat-card-title><strong>Welcome to Let's Roll Logistics</strong></mat-card-title>
+        <mat-card-subtitle><strong>Your trusted logistics partner</strong></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>We provide comprehensive logistics solutions for all your shipping needs.</strong></p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Why Choose Us Section -->
+    <mat-card class="why-choose-us-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>verified</mat-icon>
+          Why Choose Us?
+        </mat-card-title>
+        <mat-card-subtitle>Strategic. Safety First. Purpose Driven.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="why-choose-grid">
+          <!-- Strategic Advantages -->
+          <div class="why-choose-item">
+            <div class="icon-wrapper">
+              <mat-icon>trending_up</mat-icon>
+            </div>
+            <h3>Strategic Advantages</h3>
+            <h4>Smarter Routes. Stronger Margins. Stable Demand.</h4>
+            <ul>
+              <li><strong>No Miles Wasted:</strong> Our team strategically routes freight to minimize empty backhauls
+                (deadhead miles), boosting asset efficiency and revenue per mile.</li>
+              <li><strong>High Demand, Low Competition:</strong> A 5:1 load-to-truck ratio signals robust, reliable
+                freight volume—and with strict regulatory barriers, new competition is limited.</li>
+              <li><strong>Seasonal Resilience:</strong> We proactively plan for seasonal shifts, leveraging contract
+                freight, storage freight, and diversified regions to offset winter slowdowns and sustain profitability
+                year-round.</li>
+            </ul>
+          </div>
+
+          <!-- Safety Drives Profitability -->
+          <div class="why-choose-item">
+            <div class="icon-wrapper">
+              <mat-icon>security</mat-icon>
+            </div>
+            <h3>Safety Drives Profitability</h3>
+            <h4>27+ Years of Hazmat Excellence</h4>
+            <ul>
+              <li><strong>Highest Standards:</strong> We hold our drivers to the highest qualification and training
+                standards in the industry, ensuring safe delivery and protecting our clients' freight.</li>
+              <li><strong>Proven Experience:</strong> With over 27 years of hands-on experience in logistics,
+                operations, and transportation management, we specialize in the safe and efficient transport of
+                hazardous materials across North America.</li>
+              <li><strong>Regulatory Compliance:</strong> Every load is handled under full compliance with FMCSA, PHMSA,
+                DOT, and EPA regulations.</li>
+            </ul>
+          </div>
+
+          <!-- Insurance, Monitoring & Risk Control -->
+          <div class="why-choose-item">
+            <div class="icon-wrapper">
+              <mat-icon>monitor_heart</mat-icon>
+            </div>
+            <h3>Insurance, Monitoring & Risk Control</h3>
+            <h4>Real-Time Safety & Compliance</h4>
+            <ul>
+              <li><strong>Advanced Technology:</strong> Every unit is equipped with ELD, GPS, and remote diagnostics for
+                comprehensive fleet monitoring.</li>
+              <li><strong>Proactive Management:</strong> Our compliance team monitors driving behavior and equipment
+                health to preemptively manage risk.</li>
+              <li><strong>Continuous Safety:</strong> We invest in real-time telematics, ELD tracking, and quarterly
+                safety reviews to ensure every mile is monitored, compliant, and secure.</li>
+            </ul>
+          </div>
+
+          <!-- Purpose-Driven Company -->
+          <div class="why-choose-item">
+            <div class="icon-wrapper">
+              <mat-icon>favorite</mat-icon>
+            </div>
+            <h3>A Purpose-Driven Logistics Company</h3>
+            <h4>Every Load Fuels Purpose</h4>
+            <ul>
+              <li><strong>Asset-Light Model:</strong> Our decentralized, asset-light model reduces overhead and
+                increases efficiency.</li>
+              <li><strong>Charitable Impact:</strong> We allocate 10% of gross revenue to charitable impact without
+                sacrificing performance.</li>
+              <li><strong>Community Focus:</strong> We don't just move freight—we move people forward, creating economic
+                opportunity while giving back to restore lives and communities.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Experience Highlight -->
+        <div class="experience-highlight">
+          <mat-icon>star</mat-icon>
+          <div class="experience-content">
+            <h3>Experience Meets Excellence</h3>
+            <p>Founded by industry veterans, Let's Roll Logistics brings decades of expertise in hazmat transportation.
+              Our leadership has held pivotal roles—from Account Manager to Vice President of Operations to Terminal
+              Manager to Sales Management and Dispatch—ensuring a deep understanding of the complexities and demands of
+              the hazmat freight sector.</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Get a Quote Section -->
+    <mat-card class="quote-cta-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>request_quote</mat-icon>
+          Ready to Get Started?
+        </mat-card-title>
+        <mat-card-subtitle>Get your instant shipping quote in just a few clicks</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="cta-content">
+          <div class="cta-features">
+            <div class="feature-item">
+              <mat-icon>flash_on</mat-icon>
+              <span>Instant Quote</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>verified</mat-icon>
+              <span>Competitive Rates</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>support_agent</mat-icon>
+              <span>Expert Support</span>
+            </div>
+            <div class="feature-item">
+              <mat-icon>schedule</mat-icon>
+              <span>24/7 Tracking</span>
+            </div>
+          </div>
+
+          <div class="cta-actions">
+            <button mat-raised-button color="primary" (click)="onGetQuote()" class="main-cta-btn">
+              <mat-icon>request_quote</mat-icon>
+              Get Your Quote Now
+            </button>
+            <p class="cta-note">No commitment required • Free estimates • Quick response</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
