@@ -128,6 +128,7 @@ export class HomeComponent {
       this.currentOpenTrigger = null;
     }
     this.hoveredMenuItem = null;
+    console.log('Left menu area, closed submenu');
   }
 
   shouldShowSubmenu(item: any): boolean {
@@ -137,8 +138,8 @@ export class HomeComponent {
   onMenuItemClick(item: any, isMobileClick: boolean = false) {
     console.log('Menu item clicked:', item.name);
 
-    // If item has submenu and this is a mobile click, toggle it instead of navigating
-    if (this.hasSubmenu(item) && (isMobileClick || this.isMobileMenuOpen)) {
+    // If item has submenu, toggle it instead of navigating
+    if (this.hasSubmenu(item)) {
       this.toggleSubmenu(item.name);
       return;
     }

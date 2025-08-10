@@ -82,6 +82,11 @@
   .submenu-arrow {
     margin-left: auto;
     font-size: 18px;
+    transition: transform 0.3s ease;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
   }
 }
 
