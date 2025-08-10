@@ -4,16 +4,19 @@
     <span class="logo">Let's Roll Logistics</span>
 
     <!-- Desktop Menu - Centered -->
-    <div class="desktop-menu centered-menu">
+    <div class="desktop-menu centered-menu" (mouseleave)="onMenuAreaLeave()">
       <ng-container *ngFor="let item of menuItems; let i = index">
         <!-- Menu item with submenu -->
-        <div *ngIf="hasSubmenu(item)" class="menu-item-container">
-          <button mat-button [matMenuTriggerFor]="submenu" class="menu-item">
+        <div *ngIf="hasSubmenu(item)" class="menu-item-container" (mouseenter)="onMenuItemHover(item, menuTrigger)">
+          <button mat-button [matMenuTriggerFor]="submenu" #menuTrigger="matMenuTrigger"
+            [matMenuTriggerRestoreFocus]="false" class="menu-item">
             <mat-icon>{{item.icon}}</mat-icon>
             <span class="menu-text">{{item.name}}</span>
             <mat-icon class="submenu-arrow">arrow_drop_down</mat-icon>
           </button>
-          <mat-menu #submenu="matMenu">
+          <mat-menu #submenu="matMenu" [hasBackdrop]="false" xPosition="after" yPosition="below"
+            [overlapTrigger]="false" class="hover-submenu" (mouseenter)="onSubmenuHover(menuTrigger)"
+            (mouseleave)="onSubmenuLeave(menuTrigger)">
             <button mat-menu-item *ngFor="let subItem of item.submenu" (click)="onMenuItemClick(subItem)">
               <mat-icon>{{subItem.icon}}</mat-icon>
               <span>{{subItem.name}}</span>
@@ -22,7 +25,8 @@
         </div>
 
         <!-- Regular menu item without submenu -->
-        <button *ngIf="!hasSubmenu(item)" mat-button (click)="onMenuItemClick(item)" class="menu-item">
+        <button *ngIf="!hasSubmenu(item)" mat-button (click)="onMenuItemClick(item)"
+          (mouseenter)="onMenuItemHover(item, null)" class="menu-item">
           <mat-icon>{{item.icon}}</mat-icon>
           <span class="menu-text">{{item.name}}</span>
         </button>
