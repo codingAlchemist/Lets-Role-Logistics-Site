@@ -12,18 +12,29 @@
     </div>
 
     <!-- Mobile Menu Button -->
-    <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="mobile-menu-button">
-      <mat-icon>menu</mat-icon>
+    <button mat-icon-button (click)="toggleMobileMenu()" class="mobile-menu-button">
+      <mat-icon>{{ isMobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
     </button>
   </mat-toolbar>
 
-  <!-- Mobile Menu -->
-  <mat-menu #mobileMenu="matMenu">
-    <button mat-menu-item *ngFor="let item of menuItems" (click)="onMenuItemClick(item)">
-      <mat-icon>{{item.icon}}</mat-icon>
-      <span>{{item.name}}</span>
-    </button>
-  </mat-menu>
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" [class.open]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+
+  <!-- Mobile Menu Sidebar -->
+  <div class="mobile-menu-sidebar" [class.open]="isMobileMenuOpen">
+    <div class="mobile-menu-header">
+      <span class="mobile-menu-title">Menu</span>
+      <button mat-icon-button (click)="closeMobileMenu()" class="mobile-menu-close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="mobile-menu-items">
+      <button mat-button *ngFor="let item of menuItems" (click)="onMenuItemClick(item)" class="mobile-menu-item">
+        <mat-icon>{{item.icon}}</mat-icon>
+        <span>{{item.name}}</span>
+      </button>
+    </div>
+  </div>
 
   <!-- Main Content Area -->
   <div class="content-area">

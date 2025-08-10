@@ -19,10 +19,23 @@ export class HomeComponent {
     { name: 'Contact', route: '/contact', icon: 'contact_mail' },
   ];
 
+  isMobileMenuOpen = false;
+
   constructor(private router: Router, private dialog: MatDialog) {}
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu() {
+    this.isMobileMenuOpen = false;
+  }
 
   onMenuItemClick(item: any) {
     console.log('Menu item clicked:', item.name);
+
+    // Close mobile menu when an item is clicked
+    this.closeMobileMenu();
 
     // Handle dialog-based menu items
     if (item.name === 'Quote') {
