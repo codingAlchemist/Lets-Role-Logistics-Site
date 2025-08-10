@@ -13,13 +13,30 @@ export class HomeComponent {
   menuItems = [
     { name: 'Home', route: '/home', icon: 'home' },
     { name: 'Services', route: '/services', icon: 'local_shipping' },
-    { name: 'Careers', route: '/careers', icon: 'work' },
+    {
+      name: 'Careers',
+      route: '/careers',
+      icon: 'work',
+      submenu: [
+        {
+          name: 'Join Our Team',
+          route: '/careers/join-our-team',
+          icon: 'person_add',
+        },
+        {
+          name: 'Elite Driver Team',
+          route: '/careers/elite-driver-team',
+          icon: 'local_shipping',
+        },
+      ],
+    },
     { name: 'Quote', route: '/quote', icon: 'request_quote' },
     { name: 'About', route: '/about', icon: 'info' },
     { name: 'Contact', route: '/contact', icon: 'contact_mail' },
   ];
 
   isMobileMenuOpen = false;
+  openSubmenu: string | null = null;
 
   constructor(private router: Router, private dialog: MatDialog) {}
 
@@ -29,10 +46,25 @@ export class HomeComponent {
 
   closeMobileMenu() {
     this.isMobileMenuOpen = false;
+    this.openSubmenu = null;
+  }
+
+  toggleSubmenu(menuName: string) {
+    this.openSubmenu = this.openSubmenu === menuName ? null : menuName;
+  }
+
+  hasSubmenu(item: any): boolean {
+    return item.submenu && item.submenu.length > 0;
   }
 
   onMenuItemClick(item: any) {
     console.log('Menu item clicked:', item.name);
+
+    // If item has submenu, toggle it instead of navigating
+    if (this.hasSubmenu(item)) {
+      this.toggleSubmenu(item.name);
+      return;
+    }
 
     // Close mobile menu when an item is clicked
     this.closeMobileMenu();
@@ -87,16 +119,26 @@ export class HomeComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Contact form submitted:', result);
-        // Here you would typically send the data to a service
-        const urgencyText =
-          result.urgency === 'critical'
-            ? 'immediately'
-            : result.urgency === 'high'
-            ? 'within 2-4 hours'
-            : result.urgency === 'normal'
-            ? 'within 24 hours'
-            : 'within 48 hours';
-        alert(`Thank you for contacting us! We will respond ${urgencyText}.`);
+
+        if (result.emailSent) {
+          const urgencyText =
+            result.urgency === 'critical'
+              ? 'immediately'
+              : result.urgency === 'high'
+              ? 'within 2-4 hours'
+              : result.urgency === 'normal'
+              ? 'within 24 hours'
+              : 'within 48 hours';
+
+          alert(
+            `✅ Thank you for contacting us! Your message has been sent to jason@j-bcreations.com and we will respond ${urgencyText}.`
+          );
+        } else {
+          console.error('Email sending failed:', result.error);
+          alert(
+            `❌ There was an issue sending your message. Please try again or contact us directly at jason@j-bcreations.com`
+          );
+        }
       }
     });
   }

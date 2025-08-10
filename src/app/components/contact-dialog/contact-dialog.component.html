@@ -179,18 +179,19 @@
   </div>
 
   <div mat-dialog-actions class="dialog-actions">
-    <button mat-button (click)="onCancel()" class="cancel-btn">
+    <button mat-button (click)="onCancel()" class="cancel-btn" [disabled]="isSubmitting">
       <mat-icon>close</mat-icon>
       Cancel
     </button>
-    <button mat-button (click)="onReset()" class="reset-btn">
+    <button mat-button (click)="onReset()" class="reset-btn" [disabled]="isSubmitting">
       <mat-icon>refresh</mat-icon>
       Reset
     </button>
-    <button mat-raised-button color="primary" (click)="onSubmitContact()" [disabled]="contactForm.invalid"
-      class="submit-btn">
-      <mat-icon>send</mat-icon>
-      Send Message
+    <button mat-raised-button color="primary" (click)="onSubmitContact()"
+      [disabled]="contactForm.invalid || isSubmitting" class="submit-btn">
+      <mat-icon *ngIf="!isSubmitting">send</mat-icon>
+      <mat-icon *ngIf="isSubmitting" class="spinner">hourglass_empty</mat-icon>
+      {{ isSubmitting ? 'Sending...' : 'Send Message' }}
     </button>
   </div>
 </div>

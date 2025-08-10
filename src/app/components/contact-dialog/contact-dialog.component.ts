@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { EmailService, ContactFormData } from '../../services/email.service';
 
 export interface ContactDialogData {
   title?: string;
@@ -13,6 +14,7 @@ export interface ContactDialogData {
 })
 export class ContactDialogComponent {
   contactForm: FormGroup;
+  isSubmitting = false;
   inquiryTypes = [
     { value: 'general', label: 'General Inquiry' },
     { value: 'quote', label: 'Request Quote' },
@@ -27,7 +29,8 @@ export class ContactDialogComponent {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ContactDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ContactDialogData
+    @Inject(MAT_DIALOG_DATA) public data: ContactDialogData,
+    private emailService: EmailService
   ) {
     this.contactForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -46,12 +49,35 @@ export class ContactDialogComponent {
 
   onSubmitContact() {
     if (this.contactForm.valid) {
-      const formData = this.contactForm.value;
+      this.isSubmitting = true;
+      const formData: ContactFormData = this.contactForm.value;
       console.log('Contact form submitted:', formData);
 
-      // Here you would typically send the data to a service
-      // For now, we'll just close the dialog with the form data
-      this.dialogRef.close(formData);
+      // Send email using the email service
+      this.emailService.sendContactEmail(formData).subscribe({
+        next: (response) => {
+          console.log('Email sent successfully:', response);
+          this.isSubmitting = false;
+
+          // Close dialog with success data
+          this.dialogRef.close({
+            ...formData,
+            emailSent: true,
+            emailResponse: response,
+          });
+        },
+        error: (error) => {
+          console.error('Error sending email:', error);
+          this.isSubmitting = false;
+
+          // Close dialog with error data
+          this.dialogRef.close({
+            ...formData,
+            emailSent: false,
+            error: error,
+          });
+        },
+      });
     } else {
       console.log('Form is invalid');
       // Mark all fields as touched to show validation errors

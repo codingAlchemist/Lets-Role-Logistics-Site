@@ -5,10 +5,28 @@
 
     <!-- Desktop Menu - Centered -->
     <div class="desktop-menu centered-menu">
-      <button mat-button *ngFor="let item of menuItems" (click)="onMenuItemClick(item)" class="menu-item">
-        <mat-icon>{{item.icon}}</mat-icon>
-        <span class="menu-text">{{item.name}}</span>
-      </button>
+      <ng-container *ngFor="let item of menuItems; let i = index">
+        <!-- Menu item with submenu -->
+        <div *ngIf="hasSubmenu(item)" class="menu-item-container">
+          <button mat-button [matMenuTriggerFor]="submenu" class="menu-item">
+            <mat-icon>{{item.icon}}</mat-icon>
+            <span class="menu-text">{{item.name}}</span>
+            <mat-icon class="submenu-arrow">arrow_drop_down</mat-icon>
+          </button>
+          <mat-menu #submenu="matMenu">
+            <button mat-menu-item *ngFor="let subItem of item.submenu" (click)="onMenuItemClick(subItem)">
+              <mat-icon>{{subItem.icon}}</mat-icon>
+              <span>{{subItem.name}}</span>
+            </button>
+          </mat-menu>
+        </div>
+
+        <!-- Regular menu item without submenu -->
+        <button *ngIf="!hasSubmenu(item)" mat-button (click)="onMenuItemClick(item)" class="menu-item">
+          <mat-icon>{{item.icon}}</mat-icon>
+          <span class="menu-text">{{item.name}}</span>
+        </button>
+      </ng-container>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -29,10 +47,24 @@
       </button>
     </div>
     <div class="mobile-menu-items">
-      <button mat-button *ngFor="let item of menuItems" (click)="onMenuItemClick(item)" class="mobile-menu-item">
-        <mat-icon>{{item.icon}}</mat-icon>
-        <span>{{item.name}}</span>
-      </button>
+      <ng-container *ngFor="let item of menuItems">
+        <button mat-button (click)="onMenuItemClick(item)" class="mobile-menu-item">
+          <mat-icon>{{item.icon}}</mat-icon>
+          <span>{{item.name}}</span>
+          <mat-icon *ngIf="hasSubmenu(item)" class="submenu-arrow">
+            {{ openSubmenu === item.name ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
+        </button>
+
+        <!-- Submenu items -->
+        <div *ngIf="hasSubmenu(item) && openSubmenu === item.name" class="submenu-items">
+          <button mat-button *ngFor="let subItem of item.submenu" (click)="onMenuItemClick(subItem)"
+            class="mobile-submenu-item">
+            <mat-icon>{{subItem.icon}}</mat-icon>
+            <span>{{subItem.name}}</span>
+          </button>
+        </div>
+      </ng-container>
     </div>
   </div>
 
